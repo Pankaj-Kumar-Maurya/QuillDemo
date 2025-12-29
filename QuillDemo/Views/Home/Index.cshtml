@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var item in Model)
+{
+        <h2>@item.Title</h2>
+
+        <div>
+            @Html.Raw(item.Content)
+        </div>
+}
+

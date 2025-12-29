@@ -1,0 +1,89 @@
+﻿@model QuillDemo.Models.Post
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<h2>Create Post</h2>
+
+<form method="post">
+    <input class="form-control mb-2" name="Title" placeholder="Title" />
+    <select class="form-control mb-2" name="Slug" id="slug">
+        <option value="">-- Select Page --</option>
+       @*  <option value="about">About</option>
+        <option value="product">Product</option>
+        <option value="services">Services</option>
+        <option value="contact">Contact</option>
+        <option value="privacy-policy">Privacy Policy</option> *@
+        <option value="Home">Home</option>
+        <option value="Privacy">Privacy</option>
+    </select>
+
+    <div id="editor" style="height:250px;"></div>
+
+    <input type="hidden" id="Content" name="Content" />
+
+    <button class="btn btn-primary mt-3">Save</button>
+</form>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script>
+        var quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+            toolbar: {
+                container: [
+                    [{ 'font': [] }, { 'size': [] }],
+
+                    ['bold', 'italic', 'underline', 'strike'],
+
+                    [{ 'color': [] }, { 'background': [] }],
+
+                    [{ 'script': 'sub' }, { 'script': 'super' }],
+
+                    [{ 'header': 1 }, { 'header': 2 }, 'blockquote', 'code-block'],
+
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+
+                    [{ 'direction': 'rtl' }, { 'align': [] }],
+
+                    ['link', 'image', 'video'],
+
+                    ['clean']
+                ],
+                handlers: {
+                    image: imageHandler
+                }
+            }
+        }
+    });
+
+
+    function imageHandler() {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/Upload/UploadImage', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            const range = quill.getSelection();
+            quill.insertEmbed(range.index, 'image', result.url);
+        };
+    }
+
+    document.querySelector("form").onsubmit = function () {
+        document.getElementById("Content").value = quill.root.innerHTML;
+    };
+</script>
+
