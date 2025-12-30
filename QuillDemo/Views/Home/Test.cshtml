@@ -1,0 +1,136 @@
+﻿
+@model IEnumerable<QuillDemo.Models.Post>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Website</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+            .section:nth-child(even) {
+                background-color: #ffffff;
+            }
+
+            .section:nth-child(odd) {
+                background-color: #f1f3f5;
+            }
+
+            .section img {
+                border-radius: 12px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                max-width: 100%;
+            }
+
+        .section-content h2 {
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-content p {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        footer {
+            background: #111;
+            color: #fff;
+            padding: 25px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="bg-dark text-white text-center py-4">
+        <h1 class="fw-bold">Demo Website</h1>
+    </header>
+
+    <!-- ================= SECTION 1 ================= -->
+    <section class="section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-md-6 section-content">
+                    @{
+                        var welcome = Model.FirstOrDefault(x => x.DivSlug == "WelcomeDiv");
+                    }
+                    @if (welcome != null)
+                    {
+                        @Html.Raw(welcome.Content)
+                    }
+                </div>
+
+                <div class="col-md-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1588003833932-e1a6c2efd91c?w=800"
+                         class="img-fluid"
+                         alt="Welcome Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 2 ================= -->
+    <section class="section">
+        <div class="container">
+            <div class="row align-items-center g-5 flex-md-row-reverse">
+                <div class="col-md-6 section-content">
+                    @{
+                        var service = Model.FirstOrDefault(x => x.DivSlug == "ServiceDiv");
+                    }
+                    @if (service != null)
+                    {
+                        @Html.Raw(service.Content)
+                    }
+                </div>
+
+                <div class="col-md-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1552083375-1447ce886485?w=800"
+                         class="img-fluid"
+                         alt="Services Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 3 ================= -->
+    <section class="section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-md-6 section-content">
+                    @{
+                        var choose = Model.FirstOrDefault(x => x.DivSlug == "ChooseUsDiv");
+                    }
+                    @if (choose != null)
+                    {
+                        @Html.Raw(choose.Content)
+                    }
+                </div>
+
+                <div class="col-md-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"
+                         class="img-fluid"
+                         alt="Why Choose Us">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 My Website. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

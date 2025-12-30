@@ -31,6 +31,11 @@ namespace QuillDemo.Controllers
             return View(privacyPage);
         }
 
+        public IActionResult Test()
+        {
+            var testPage = _context.Posts.Where(T => T.Slug == "Test").ToList();
+            return View(testPage);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

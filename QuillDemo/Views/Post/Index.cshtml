@@ -13,7 +13,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.Title</td>
+            <td>@item.Slug > @item.DivSlug</td>
             <td>
                 <a class="btn btn-sm btn-primary" href="/Post/Details/@item.Id">View</a>
                 <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id"
